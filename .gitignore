@@ -2,6 +2,8 @@
 logs
 *.log
 npm-debug.log*
+.idea
+.idea/jsLibraryMappings.xml
 
 # Runtime data
 pids
