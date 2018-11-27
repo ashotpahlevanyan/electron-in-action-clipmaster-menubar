@@ -1,7 +1,10 @@
 const { globalShortcut } = require('electron');
 const Menubar = require('menubar');
 
-const menubar = Menubar();
+const menubar = Menubar({
+	preloadWindow: true,
+	index: `file://${__dirname}/index.html`
+});
 
 menubar.on('ready', () => {
 	console.log('Application is ready');
