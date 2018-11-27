@@ -28,3 +28,17 @@ const addClippingToList = () => {
 };
 
 copyFromClipboardButton.addEventListener('click', addClippingToList);
+
+
+clippingsList.addEventListener('click', (event) => {
+	const hasClass = className =>
+		event.target.classList.contains(className);
+
+	if(hasClass('remove-clipping')) console.log('Remove Clipping');
+	if(hasClass('copy-clipping')) console.log('Copy Clipping');
+	if(hasClass('publish-clipping')) console.log('Publish Clipping');
+});
+
+const removeClipping = (target) => {
+	target.parentNode.parentNode.remove();
+};
