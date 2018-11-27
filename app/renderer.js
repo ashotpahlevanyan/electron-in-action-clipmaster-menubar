@@ -1,3 +1,5 @@
+const { clipboard } = require('electron');
+
 const clippingsList = document.getElementById('clippings-list');
 const copyFromClipboardButton = document.getElementById('copy-from-clipboard');
 
@@ -18,3 +20,11 @@ const createClippingElement = (clippingText) => {
 	clippingElement.querySelector('.clipping-text').innerText = clippingText;
 	return clippingElement;
 };
+
+const addClippingToList = () => {
+	const clippingText = clipboard.readText();
+	const clippingElement = createClippingElement(clippingText);
+	clippingsList.prepend(clippingElement);
+};
+
+copyFromClipboardButton.addEventListener('click', addClippingToList);
