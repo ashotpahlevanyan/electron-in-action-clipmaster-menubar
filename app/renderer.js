@@ -34,11 +34,21 @@ clippingsList.addEventListener('click', (event) => {
 	const hasClass = className =>
 		event.target.classList.contains(className);
 
-	if(hasClass('remove-clipping')) console.log('Remove Clipping');
-	if(hasClass('copy-clipping')) console.log('Copy Clipping');
-	if(hasClass('publish-clipping')) console.log('Publish Clipping');
+	const clippingListItem = getButtonParent(className);
+
+	if(hasClass('remove-clipping')) removeClipping(clippingListItem);
+	if(hasClass('copy-clipping')) console.log('Copy Clipping', getClippingText(clippingListItem));
+	if(hasClass('publish-clipping')) console.log('Publish Clipping', getClippingText(clippingListItem));
 });
 
 const removeClipping = (target) => {
-	target.parentNode.parentNode.remove();
+	target.remove();
+};
+
+const getButtonParent = ({ target }) => {
+	return target.parentNode.parentNode;
+};
+
+const getClippingText = (clippingListItem) => {
+	return clippingListItem.querySelector('.clipping-text').innerText;
 };
