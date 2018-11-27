@@ -36,8 +36,13 @@ clippingsList.addEventListener('click', (event) => {
 
 	const clippingListItem = getButtonParent(className);
 
-	if(hasClass('remove-clipping')) removeClipping(clippingListItem);
-	if(hasClass('copy-clipping')) console.log('Copy Clipping', getClippingText(clippingListItem));
+	if(hasClass('remove-clipping')) {
+		removeClipping(clippingListItem);
+	}
+
+	if(hasClass('copy-clipping')) {
+		writeToClipboard(getClippingText(clippingListItem));
+	}
 	if(hasClass('publish-clipping')) console.log('Publish Clipping', getClippingText(clippingListItem));
 });
 
@@ -52,3 +57,8 @@ const getButtonParent = ({ target }) => {
 const getClippingText = (clippingListItem) => {
 	return clippingListItem.querySelector('.clipping-text').innerText;
 };
+
+const writeToClipboard = (clippingText) => {
+	clipboard.writeText(clippingText);
+};
+
