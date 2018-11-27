@@ -1,4 +1,4 @@
-const { clipboard, shell } = require('electron');
+const { clipboard, ipcRenderer, shell } = require('electron');
 const request = require('request').defaults({
 	url: 'https://cliphub.glitch.me/clippings',
 	headers: { 'User-Agent' : 'Clipmaster 9000'},
@@ -91,4 +91,21 @@ const publishClipping = (clipping) => {
 		clipboard.writeText(url);
 	});
 };
+
+ipcRenderer.on('create-new-clipping', () => {
+	addClippingToList();
+	new Notification('Clipping Added', {
+		body: `${clipboard.readText()}`
+	})
+});
+
+ipcRenderer.on('write-to-clipboard', () => {
+	const clipping = clippingsList.firstChild;
+	writeToClipboard(getClippingText(clipping));
+});
+
+ipcRenderer.on('publish-clipping', () => {
+	const clipping = clippingsList.firstChild;
+	publishClipping(getClippingText(clipping));
+});
 
