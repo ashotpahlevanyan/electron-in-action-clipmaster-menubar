@@ -1,5 +1,13 @@
-const { globalShortcut } = require('electron');
+const { globalShortcut, Menu } = require('electron');
 const Menubar = require('menubar');
+
+const secondaryMenu = Menu.buildFromTemplate([
+	{
+		label: 'Quit',
+		click() { menubar.app.quit(); },
+		accelerator: 'CommandOrControl+Q'
+	},
+]);
 
 const menubar = Menubar({
 	preloadWindow: true,
@@ -8,6 +16,10 @@ const menubar = Menubar({
 
 menubar.on('ready', () => {
 	console.log('Application is ready');
+
+	menubar.tray.on('right-click', () => {
+		menubar.tray.popUpContextMenu(secondaryMenu);
+	});
 
 	const createClipping = globalShortcut.register('CommandOrControl+!', () => {
 		menubar.window.webContents.send('create-new-clipping');
